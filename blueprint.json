@@ -16,7 +16,7 @@
         "patch": 0
       }
     },
-    "timestamp": "2019-08-26T07:26:44+10:00"
+    "timestamp": "2019-08-28T16:42:24+10:00"
   },
   "software": {
     "base": {
@@ -24,11 +24,19 @@
       "inherit": "https://raw.githubusercontent.com/EnginesBlueprints/redis_stunnel/master/blueprint.json",
       "framework": "base_c",
       "deployment_type": "worker",
+      "http_protocol": "https_and_http",
       "memory": {
         "required": 1024,
         "recommended": 1024
       }
     },
+    "ports": [
+      {
+        "port": "8025",
+        "external": "8025",
+        "protocol": "tcp"
+      }
+    ],
     "scripts": {
       "install": {
         "content": "#!/bin/sh\r\ncd /home/home_dir/\r\nwget http://download.redis.io/redis-stable.tar.gz\r\ntar xvzf redis-stable.tar.gz\r\ncd redis-stable\r\nmake\r\nmake install\r\ncd ..\r\nrm -r redis-stable redis-stable.tar.gz\r\n\r\n\r\ngit clone https://github.com/RediSearch/RediSearch.git\r\ncd RediSearch\r\nmake\r\ncp ./src/redisearch.so /home/app/modules/"
